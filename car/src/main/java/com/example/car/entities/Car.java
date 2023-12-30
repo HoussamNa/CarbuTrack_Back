@@ -18,7 +18,8 @@ public class Car {
     private Long id;
     private String brand;
     private String model;
-    private String registrationNumber; // Renamed from "matricule"
+    private String registrationNumber;
     private Long clientId;
-    private String fuelType; // Added fuelType field
+    private String fuelType;
+    private String PhotoU;
 }

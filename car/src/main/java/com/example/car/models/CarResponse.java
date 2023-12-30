@@ -14,7 +14,9 @@ public class CarResponse {
     private Long id;
     private String brand;
     private String model;
-    private String registrationNumber; // Renamed from "matricue"
+    private String registrationNumber;
     private Client client;
-    private String fuelType; // Added fuelType field
+    private String fuelType;
+    private String photoU;
+
 }

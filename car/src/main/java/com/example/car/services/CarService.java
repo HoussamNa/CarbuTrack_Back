@@ -5,13 +5,13 @@ import com.example.car.entities.Client;
 import com.example.car.models.CarResponse;
 import com.example.car.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
 import java.util.stream.Collectors;
-import java.util.*;
 
 @Service
 public class CarService {
@@ -48,6 +48,8 @@ public class CarService {
         existingCar.setClientId(updatedCar.getClientId());
         existingCar.setFuelType(updatedCar.getFuelType());
 
+        existingCar.setPhotoU(updatedCar.getPhotoU());
+
         Car savedCar = carRepository.save(existingCar);
         Client client = restTemplate.getForObject(CLIENT_URL + "/" + savedCar.getClientId(), Client.class);
         return mapToCarResponse(savedCar, Collections.singletonList(client));
@@ -70,6 +72,7 @@ public class CarService {
                 .registrationNumber(car.getRegistrationNumber())
                 .model(car.getModel())
                 .fuelType(car.getFuelType())
+                .photoU(car.getPhotoU())
                 .build();
     }
 }
