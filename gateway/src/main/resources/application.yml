@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      dicovery: GATEWAY
+  application:
+    name: GATEWAY
+
+server:
+  port: 8888
+
