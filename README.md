@@ -12,6 +12,7 @@ Welcome to the backend repository of CarbuTrack, an energy consumption tracking 
 4. [Consul Server Integration](#consul-server-integration)
 5. [Development](#development)
    - [Running the Backend](#running-the-backend)
+   - [Accessing the Consul Dashboard](#accessing-the-consul-dashboard)
    - [Code Structure](#code-structure)
 6. [API Documentation](#api-documentation)
 7. [Further Help](#further-help)
@@ -37,9 +38,13 @@ CarbuTrack's backend consists of the following microservices:
 
 The Car Microservice manages vehicle information, including storage, retrieval, and updates.
 
+- **Port**: 8087
+
 ### 2. Client Microservice <a name="client-microservice"></a>
 
 The Client Microservice handles user account management, authentication, and user profile data.
+
+- **Port**: 8086
 
 ## Consul Server Integration <a name="consul-server-integration"></a>
 
@@ -56,11 +61,26 @@ To run the CarbuTrack backend locally, follow these steps:
 2. Navigate to the project's root directory.
 
 3. Run the backend using the Spring Boot command:
-   
+
 ./mvnw spring-boot:run
 
 
-4. The backend will start at `http://localhost:8080`.
+4. The backend will start at `http://localhost:8888`.
+
+### Accessing the Consul Dashboard <a name="accessing-the-consul-dashboard"></a>
+
+To view the Consul dashboard and check the status of services, follow these steps:
+
+1. Ensure that Consul is installed and running on your local machine or a designated server.
+
+2. Access the Consul dashboard by opening your web browser and entering the following URL:
+
+http://localhost:8500
+
+
+If Consul is running on a different machine or server, replace `localhost` with the appropriate IP or hostname.
+
+3. The Consul dashboard will display service status, health checks, and other configuration details for your microservices.
 
 ### Code Structure <a name="code-structure"></a>
 
