@@ -6,14 +6,5 @@ spring:
       dicovery: GATEWAY
   application:
     name: GATEWAY
-cloud:
-  gateway:
-    globalcors:
-      corsConfigurations:
-      '[/**]':
-      allowedOrigins: "*"
-      allowedMethods: "*"
-      allowedHeaders: "*"
-
 server:
   port: 8888

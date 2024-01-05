@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/client")
 public class ClientController {
@@ -24,7 +24,7 @@ public class ClientController {
         return service.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/")
     public Client save(@RequestBody Client client) {
         return service.addClient(client);
     }
@@ -38,4 +38,5 @@ public class ClientController {
     public void delete(@PathVariable Long id) throws Exception {
         service.deleteClient(id);
     }
+
 }
