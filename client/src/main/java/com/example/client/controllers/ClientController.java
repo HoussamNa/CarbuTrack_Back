@@ -1,8 +1,11 @@
 package com.example.client.controllers;
 
+import com.example.client.dto.PasswordUpdateRequest;
 import com.example.client.entities.Client;
 import com.example.client.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,6 +50,16 @@ public class ClientController {
             return authenticatedClient;
         } else {
             throw new Exception("Login failed. Invalid email or password.");
+        }
+    }
+
+    @PutMapping("/updatePassword")
+    public ResponseEntity<String> updatePassword(@RequestBody PasswordUpdateRequest request) {
+        try {
+            service.updatePassword(request.getEmail(), request.getCurrentPassword(), request.getNewPassword());
+            return ResponseEntity.ok("Password updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

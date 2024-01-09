@@ -3,6 +3,7 @@ package com.example.client.services;
 import com.example.client.entities.Client;
 import com.example.client.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -56,5 +57,18 @@ public class ClientService {
     public Client findByEmailAndPassword(String email, String password) {
         return repository.findByEmailAndPassword(email, password);
     }
-
+    public void updatePassword(String email, String currentPassword, String newPassword) throws Exception {
+        Optional<Client> clientOptional = repository.findByEmail(email);
+        if (clientOptional.isPresent()) {
+            Client client = clientOptional.get();
+            if (currentPassword.equals(client.getPassword())) {
+                client.setPassword(newPassword);
+                repository.save(client);
+            } else {
+                throw new Exception("Current password is incorrect");
+            }
+        } else {
+            throw new Exception("Client not found");
+        }
+    }
 }
