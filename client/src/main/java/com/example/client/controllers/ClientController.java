@@ -39,4 +39,15 @@ public class ClientController {
         service.deleteClient(id);
     }
 
+
+    @PostMapping("/login")
+    public Client login(@RequestBody Client loginRequest) throws Exception {
+        Client authenticatedClient = service.findByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword());
+        if (authenticatedClient != null) {
+            return authenticatedClient;
+        } else {
+            throw new Exception("Login failed. Invalid email or password.");
+        }
+    }
+
 }

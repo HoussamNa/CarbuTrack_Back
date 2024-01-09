@@ -53,4 +53,8 @@ public class ClientService {
             throw new Exception("Client not found");
         }
     }
+    public Client findByEmailAndPassword(String email, String password) {
+        return repository.findByEmailAndPassword(email, password);
+    }
+
 }
