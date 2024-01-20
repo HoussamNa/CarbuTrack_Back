@@ -75,4 +75,11 @@ public class CarService {
                 .photoU(car.getPhotoU())
                 .build();
     }
+
+    public List<CarResponse> findByClientId(Long clientId) {
+        List<Car> cars = carRepository.findByClientId(clientId);
+        List<Client> clients = Arrays.asList(restTemplate.getForObject(CLIENT_URL, Client[].class));
+        return cars.stream().map(car -> mapToCarResponse(car, clients)).collect(Collectors.toList());
+    }
+
 }

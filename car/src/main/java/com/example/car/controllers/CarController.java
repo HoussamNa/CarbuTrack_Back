@@ -15,9 +15,13 @@ public class CarController {
     private CarService carService;
 
     @GetMapping
-    public List<CarResponse> findAll() {
+    public List<CarResponse> findAll(@RequestParam(required = false) Long clientId) {
+        if (clientId != null) {
+            return carService.findByClientId(clientId);
+        }
         return carService.findAll();
     }
+
 
     @GetMapping("/{id}")
     public CarResponse findById(@PathVariable Long id) throws Exception {

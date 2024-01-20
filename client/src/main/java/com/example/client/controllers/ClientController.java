@@ -56,11 +56,24 @@ public class ClientController {
     @PutMapping("/updatePassword")
     public ResponseEntity<String> updatePassword(@RequestBody PasswordUpdateRequest request) {
         try {
+            // Add log to see the incoming request
+            System.out.println("Received password update request: " + request.getEmail());
+
+            // Log the current password to check its value
+            System.out.println("Current password received: " + request.getCurrentPassword());
+
             service.updatePassword(request.getEmail(), request.getCurrentPassword(), request.getNewPassword());
+
+            // Log a success message
+            System.out.println("Password updated successfully");
+
             return ResponseEntity.ok("Password updated successfully");
         } catch (Exception e) {
+            // Log the exception message
+            System.err.println("Password update failed: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
 
 }

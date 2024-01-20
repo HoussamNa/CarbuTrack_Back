@@ -1,0 +1,121 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                script {
+                    checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/HoussamNa/CarbuTrackFullEdition.git']]])
+
+                }
+            }
+        }
+
+                stage('Build Docker') {
+                    steps {
+                        script {
+                            dir('gateway') {
+                                bat 'mvn clean install package'
+                            }
+                            dir('client') {
+                                bat 'mvn clean install package'
+                            }
+                            dir('car') {
+                                bat 'mvn clean install package'
+                            }
+
+                            dir('consumption') {
+                                bat 'mvn clean install package'
+                            }
+                        }
+                    }
+                }
+
+
+
+
+                     stage('Create Docker Images and run') {
+                    steps {
+                        script {
+
+                                bat "docker-compose down"
+
+                                bat "docker-compose up --build -d"
+
+
+
+                        }
+                    }
+                }
+
+stage('Build gateway') {
+    steps {
+    script{
+        dir('gateway') {
+
+            withSonarQubeEnv('SonarServer') {
+                bat "mvn clean verify sonar:sonar"
+            }
+
+                }
+
+
+    }
+    }
+}
+
+
+stage('Build client') {
+    steps {
+    script{
+        dir('client') {
+
+            withSonarQubeEnv('SonarServer') {
+                bat "mvn clean verify sonar:sonar"
+            }
+
+                }
+
+
+    }
+    }
+}
+
+
+stage('Build car') {
+    steps {
+    script{
+        dir('car') {
+
+            withSonarQubeEnv('SonarServer') {
+                bat "mvn clean verify sonar:sonar"
+            }
+
+                }
+
+
+    }
+    }
+}
+
+stage('Build consumption') {
+    steps {
+    script{
+        dir('consumption') {
+
+            withSonarQubeEnv('SonarServer') {
+                bat "mvn clean verify sonar:sonar"
+            }
+
+                }
+
+
+    }
+    }
+}
+
+    }
+}
